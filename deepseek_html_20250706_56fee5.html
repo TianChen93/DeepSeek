@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebToolHub - GitHub Pages 部署</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .logo i {
+            color: #61dafb;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: #e0e0e0;
+        }
+        
+        /* 卡片样式 */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card h2 i {
+            background: rgba(255, 255, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .card ul {
+            list-style: none;
+            margin-left: 15px;
+        }
+        
+        .card li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .card li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #61dafb;
+            font-weight: bold;
+        }
+        
+        /* 步骤样式 */
+        .steps {
+            counter-reset: step-counter;
+            margin: 50px 0;
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .step-number {
+            min-width: 80px;
+            background: #61dafb;
+            color: #1a2a6c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        .step-number:before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+        }
+        
+        .step-content {
+            padding: 25px;
+            flex: 1;
+        }
+        
+        .step-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: #61dafb;
+        }
+        
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        
+        /* 按钮样式 */
+        .btn-container {
+            text-align: center;
+            margin: 50px 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #61dafb;
+            color: #1a2a6c;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(97, 218, 251, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: #45c8ff;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(97, 218, 251, 0.6);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .step {
+                flex-direction: column;
+            }
+            
+            .step-number {
+                min-height: 60px;
+                width: 100%;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fab fa-github"></i>
+            </div>
+            <h1>GitHub Pages 部署指南</h1>
+            <p class="subtitle">
+                通过本指南，您将学会如何注册 GitHub 账户并部署您的网页工具发布网站到 GitHub Pages
+            </p>
+        </div>
+        
+        <div class="card-container">
+            <div class="card">
+                <h2><i class="fas fa-user-plus"></i> 注册 GitHub</h2>
+                <ul>
+                    <li>访问 GitHub 注册页面</li>
+                    <li>创建您的用户名</li>
+                    <li>填写邮箱和密码</li>
+                    <li>完成邮箱验证</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h2><i class="fas fa-folder-plus"></i> 创建仓库</h2>
+                <ul>
+                    <li>点击 "+" 新建仓库</li>
+                    <li>命名规则: username.github.io</li>
+                    <li>设为公开仓库</li>
+                    <li>添加 README 文件</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h2><i class="fas fa-cloud-upload-alt"></i> 上传文件</h2>
+                <ul>
+                    <li>上传网站 HTML/CSS/JS 文件</li>
+                    <li>添加 index.html 作为入口</li>
+                    <li>可创建其他页面文件</li>
+                    <li>提交更改到仓库</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="steps">
+            <div class="step">
+                <div class="step-number"></div>
+                <div class="step-content">
+                    <h3>步骤 1：注册 GitHub 账户</h3>
+                    <p>访问 <a href="https://github.com/signup" style="color: #61dafb; text-decoration: underline;">GitHub 注册页面</a> 并填写必要信息：</p>
+                    <ul>
+                        <li>用户名（将成为您网站地址的一部分）</li>
+                        <li>有效的电子邮箱地址</li>
+                        <li>安全密码</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number"></div>
+                <div class="step-content">
+                    <h3>步骤 2：创建专用仓库</h3>
+                    <p>登录后，创建新仓库并命名为：<code>您的用户名.github.io</code></p>
+                    <p>例如：如果您的用户名是 <code>webmaster</code>，仓库名应为 <code>webmaster.github.io</code></p>
+                    <p>确保选择 <strong>Public</strong>（公开）并勾选 <strong>"Add a README file"</strong>。</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number"></div>
+                <div class="step-content">
+                    <h3>步骤 3：上传网站文件</h3>
+                    <p>在仓库页面，点击 "Add file" > "Upload files"：</p>
+                    <ul>
+                        <li>上传您的 <code>index.html</code> 文件</li>
+                        <li>上传 CSS、JavaScript 和其他资源文件</li>
+                        <li>确保网站入口文件为 <code>index.html</code></li>
+                    </ul>
+                    <p>添加提交信息后点击 "Commit changes"。</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number"></div>
+                <div class="step-content">
+                    <h3>步骤 4：启用 GitHub Pages</h3>
+                    <p>在仓库中：</p>
+                    <ol>
+                        <li>点击顶部菜单的 "Settings"</li>
+                        <li>在左侧边栏选择 "Pages"</li>
+                        <li>在 "Source" 部分选择分支（通常为 <code>main</code>）</li>
+                        <li>选择文件夹（通常为 <code>/(root)</code>）</li>
+                        <li>点击 "Save"</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number"></div>
+                <div class="step-content">
+                    <h3>步骤 5：访问您的网站</h3>
+                    <p>等待 1-2 分钟后，访问：</p>
+                    <p><code>https://您的用户名.github.io</code></p>
+                    <p>例如：<code>https://webmaster.github.io</code></p>
+                    <p>您的网站现在已上线！</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="btn-container">
+            <a href="https://github.com/signup" class="btn">
+                立即注册 GitHub
+                <i class="fas fa-arrow-right" style="margin-left: 10px;"></i>
+            </a>
+        </div>
+        
+        <div class="card">
+            <h2><i class="fas fa-lightbulb"></i> 高级提示</h2>
+            <ul>
+                <li>使用 <code>.nojekyll</code> 文件禁用 Jekyll 处理</li>
+                <li>添加 <code>CNAME</code> 文件使用自定义域名</li>
+                <li>创建 <code>404.html</code> 自定义错误页面</li>
+                <li>使用 GitHub Actions 自动化部署流程</li>
+                <li>启用 HTTPS 确保网站安全</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 添加简单的动画效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 卡片动画
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 300 * index);
+                
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            });
+            
+            // 步骤动画
+            const steps = document.querySelectorAll('.step');
+            steps.forEach((step, index) => {
+                setTimeout(() => {
+                    step.style.opacity = '1';
+                    step.style.transform = 'translateX(0)';
+                }, 400 * index + 300);
+                
+                step.style.opacity = '0';
+                step.style.transform = 'translateX(-20px)';
+                step.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            });
+        });
+    </script>
+</body>
+</html>
